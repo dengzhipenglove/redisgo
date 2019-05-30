@@ -68,6 +68,9 @@ func (c *Cacher) StartAndGC(options interface{}) error {
 		if opts.Unmarshal == nil {
 			c.unmarshal = json.Unmarshal
 		}
+		if opts.Prefix != "" {
+			c.prefix = opts.Prefix
+		}
 		pool := &redis.Pool{
 			MaxActive:   opts.MaxActive,
 			MaxIdle:     opts.MaxIdle,
@@ -812,8 +815,3 @@ func (c *Cacher) closePool() {
 		os.Exit(0)
 	}()
 }
-
-// init 注册到cache
-// func init() {
-// 	cache.Register("redis", &Cacher{})
-// }
