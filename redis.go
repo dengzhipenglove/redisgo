@@ -317,6 +317,11 @@ func (c *Cacher) HExists(key, field string) (reply int, err error) {
 	return
 }
 
+func (c *Cacher) HDel(key, field string) (reply int, err error) {
+	reply, err = Int(c.Do("HDEL", c.getKey(key), field))
+	return
+}
+
 /**
 Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）
 **/

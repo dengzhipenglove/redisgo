@@ -34,7 +34,10 @@ func Equal(t *testing.T, expected, actual interface{}) {
 func getCacher() *Cacher {
 	c, err := New(
 		Options{
-			Prefix: "zengate_",
+			Network:  "tcp",
+			Addr:     "127.0.0.1:6379",
+			Password: "20190604",
+			Prefix:   "zengate_",
 		})
 	if err != nil {
 		panic(err)
@@ -138,4 +141,13 @@ func TestSortedSet(t *testing.T) {
 	score, err := c.ZScore("scores", "corel")
 	NoError(t, err)
 	Equal(t, int64(82), score)
+}
+
+func TestHDel(t *testing.T) {
+	var err error
+	c := getCacher()
+	_, err = c.HSet("huser", "1", "haha")
+	NoError(t, err)
+	_, err = c.HDel("huser", "1")
+	NoError(t, err)
 }
