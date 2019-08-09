@@ -311,14 +311,21 @@ func (c *Cacher) HGetAll(key string, val interface{}) error {
 	return err
 }
 
-// Hexists 如果哈希表含有给定字段，返回 1 。 如果哈希表不含有给定字段，或 key 不存在，返回 0 。
+// HExists 如果哈希表含有给定字段，返回 1 。 如果哈希表不含有给定字段，或 key 不存在，返回 0 。
 func (c *Cacher) HExists(key, field string) (reply int, err error) {
 	reply, err = Int(c.Do("HEXISTS", c.getKey(key), field))
 	return
 }
 
+//HDel 删除HASH表中字段,返回被成功移除的域的数量，不包括被忽略的域。
 func (c *Cacher) HDel(key, field string) (reply int, err error) {
 	reply, err = Int(c.Do("HDEL", c.getKey(key), field))
+	return
+}
+
+// HIncrby 为哈希表 key 中的域 field 的值加上增量 increment ,返回哈希表 key 中域 field 的值。
+func (c *Cacher) HIncrby(key, filed string, increment int) (reply int, err error) {
+	reply, err = Int(c.Do("HINCRBY", c.getKey(key), filed, increment))
 	return
 }
 

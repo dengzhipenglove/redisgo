@@ -151,3 +151,10 @@ func TestHDel(t *testing.T) {
 	_, err = c.HDel("huser", "1")
 	NoError(t, err)
 }
+
+func TestHIncrby(t *testing.T) {
+	var err error
+	c := getCacher()
+	_, err = c.HIncrby("hnum", "num", 1)
+	NoError(t, err)
+}
