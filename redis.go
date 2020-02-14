@@ -572,6 +572,13 @@ func (c *Cacher) ZRevrangeByScore(key string, from, to, offset int64, count int)
 	return redis.Int64Map(c.Do("ZREVRANGEBYSCORE", c.getKey(key), from, to, "WITHSCORES", "LIMIT", offset, count))
 }
 
+//为有序集 key 的成员 member 的 score 值加上增量 increment 。
+//返回member 成员的新 score 值，以字符串形式表示。
+func (c *Cacher) ZIncrby(key, member string, increment int) (reply int, err error) {
+	reply, err = Int(c.Do("ZINCRBY", c.getKey(key), increment, member))
+	return
+}
+
 /**
 Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。
 Redis 客户端可以订阅任意数量的频道。
