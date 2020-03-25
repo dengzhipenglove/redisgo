@@ -162,6 +162,6 @@ func TestHIncrby(t *testing.T) {
 func TestZIncrby(t *testing.T) {
 	var err error
 	c := getCacher()
-	_, err = c.ZIncrby("hnum", "num", 1)
+	_, err = c.ZIncrby("hNum", "num", 1)
 	NoError(t, err)
 }
