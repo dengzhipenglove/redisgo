@@ -165,3 +165,11 @@ func TestZIncrby(t *testing.T) {
 	_, err = c.ZIncrby("hNum", "num", 1)
 	NoError(t, err)
 }
+
+func TestZcard(t *testing.T) {
+	var err error
+	c := getCacher()
+	val, err := c.ZCard("hNum")
+	Equal(t, int(1), val)
+	NoError(t, err)
+}

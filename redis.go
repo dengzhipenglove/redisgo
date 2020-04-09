@@ -579,6 +579,13 @@ func (c *Cacher) ZIncrby(key, member string, increment int) (reply int, err erro
 	return
 }
 
+//Redis Zcard 命令用于计算集合中元素的数量。
+//当 key 存在且是有序集类型时，返回有序集的基数。 当 key 不存在时，返回 0 。
+func (c *Cacher) ZCard(key string) (reply int, err error) {
+	reply, err = Int(c.Do("ZCARD", c.getKey(key)))
+	return
+}
+
 /**
 Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。
 Redis 客户端可以订阅任意数量的频道。
